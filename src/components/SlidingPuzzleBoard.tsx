@@ -4,7 +4,7 @@ import {Tile} from "./Tile";
 
 export const SlidingPuzzleBoard = () => {
     const {
-        puzzleList, puzzleIndex, puzzleStyle, tileStyle, emptyTileStyle, gridSize
+        puzzleList, puzzleIndex, puzzleStyle, tileStyle, emptyTileStyle, gridWidth, gridHeight
     } = useContext(SlidingPuzzleContext);
 
 
@@ -12,8 +12,8 @@ export const SlidingPuzzleBoard = () => {
         const tileContent = value === 0 ? '' : value;
         const tileStyleWithPosition = {
             ...tileStyle,
-            gridColumn: `${(index % gridSize) + 1} / span 1`,
-            gridRow: `${Math.floor(index / gridSize) + 1} / span 1`,
+            gridColumn: `${(index % gridWidth) + 1} / span 1`,
+            gridRow: `${Math.floor(index / gridHeight) + 1} / span 1`,
             transform: index === puzzleIndex ? 'scale(1)' : 'scale(1.1)',
             cursor: index === puzzleIndex ? 'default' : 'pointer',
             ...(index === puzzleIndex ? emptyTileStyle : {}),

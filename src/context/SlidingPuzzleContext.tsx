@@ -1,11 +1,11 @@
 import React, { useState, useEffect, createContext, } from 'react';
 import {SlidingPuzzle} from "../lib/sliding-puzzle/sliding-puzzle";
-import slidingPuzzleTest from "../AI/SlidingPuzzleTest";
 
 export const SlidingPuzzleContext = createContext();
 
 const slidingPuzzle = new SlidingPuzzle(3,3);
-export const SlidingPuzzleProvider = ({ imageSrc, gridSize, children }) => {
+
+export const SlidingPuzzleProvider = ({ imageSrc, gridWidth, gridHeight, children }) => {
 
     const [puzzleList, setPuzzleList] = useState(slidingPuzzle.list);
     const [puzzleIndex, setPuzzleIndex] = useState(slidingPuzzle.index);
@@ -14,7 +14,7 @@ export const SlidingPuzzleProvider = ({ imageSrc, gridSize, children }) => {
     useEffect(() => {
         setPuzzleList(slidingPuzzle.list);
         setPuzzleIndex(slidingPuzzle.index);
-    }, [gridSize]);
+    }, [gridWidth, gridHeight]);
 
     const handlePuzzleClick = (index:number) => {
         console.log(index)
@@ -25,11 +25,11 @@ export const SlidingPuzzleProvider = ({ imageSrc, gridSize, children }) => {
         setPuzzleMoves(slidingPuzzle.getMoves());
     };
 
-    const tileSize = 100 / gridSize;
+    const tileSize = 100 / gridWidth;
     const puzzleStyle = {
         display: 'grid',
-        gridTemplateColumns: `repeat(${gridSize}, ${tileSize}%)`,
-        gridTemplateRows: `repeat(${gridSize}, ${tileSize}%)`,
+        gridTemplateColumns: `repeat(${gridWidth}, ${tileSize}%)`,
+        gridTemplateRows: `repeat(${gridWidth}, ${tileSize}%)`,
         width: '500px',
         height: '500px',
         margin: '0 auto',
@@ -61,7 +61,7 @@ export const SlidingPuzzleProvider = ({ imageSrc, gridSize, children }) => {
     };
 
     return (
-        <SlidingPuzzleContext.Provider value={{ puzzleList, handlePuzzleClick, puzzleIndex, puzzleStyle, tileStyle, emptyTileStyle, gridSize, puzzleMoves }}>
+        <SlidingPuzzleContext.Provider value={{ puzzleList, handlePuzzleClick, puzzleIndex, puzzleStyle, tileStyle, emptyTileStyle, gridWidth, gridHeight,  puzzleMoves }}>
             {children}
         </SlidingPuzzleContext.Provider>
     );

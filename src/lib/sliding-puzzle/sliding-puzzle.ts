@@ -10,12 +10,7 @@ export class SlidingPuzzle {
 
     constructor(width: number = 3, height: number = 3, regenerate = false) {
         if(regenerate || width !== this.gridWidth || height !== this.gridHeight || !this.list.length){
-            console.log('construct');
-            this.gridHeight = height;
-            this.gridWidth = width;
-            this.list = this.create(this.gridWidth, this.gridHeight);
-            this.index = this.getIndex();
-            this.moves = 0;
+            this.createPuzzle(3,3);
         }
     }
 
@@ -28,10 +23,19 @@ export class SlidingPuzzle {
         return this.moves
     }
 
-    create(width:number, height:number):number[] {
-        const gridSize:number = width*height;
-        const gridList:number[] = [ ...Array(gridSize).keys() ];
+    createGrid(width:number, height:number):number[] {
+        const gridWidth:number = width*height;
+        const gridList:number[] = [ ...Array(gridWidth).keys() ];
         return gridList.sort((a, b) => 0.5 - Math.random());
+    }
+
+    createPuzzle(width:number, height:number):void {
+        console.log('construct');
+        this.gridHeight = height;
+        this.gridWidth = width;
+        this.list = this.createGrid(this.gridWidth, this.gridHeight);
+        this.index = this.getIndex();
+        this.moves = 0;
     }
 
     move(newIndex: number):number[] {
