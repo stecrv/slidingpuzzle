@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext, } from 'react';
 import {SlidingPuzzle} from "../lib/sliding-puzzle/sliding-puzzle";
+import {GRID_MINIMUM_SIZE} from "../lib/sliding-puzzle/constants";
 
 export const SlidingPuzzleContext = createContext();
 
@@ -7,17 +8,22 @@ const slidingPuzzle = new SlidingPuzzle(3,3);
 
 export const SlidingPuzzleProvider = ({ imageSrc, gridWidth, gridHeight, children }) => {
 
+    const [width, setWidth] = useState(gridWidth)
+    const [height, setHeight] = useState(gridHeight)
     const [puzzleList, setPuzzleList] = useState(slidingPuzzle.list);
     const [puzzleIndex, setPuzzleIndex] = useState(slidingPuzzle.index);
     const [puzzleMoves, setPuzzleMoves ] =  useState(slidingPuzzle.moves);
 
     useEffect(() => {
+        console.log('change',width,height)
+        slidingPuzzle.createPuzzle(width,height);
+        slidingPuzzle.index = slidingPuzzle.getIndex();
         setPuzzleList(slidingPuzzle.list);
         setPuzzleIndex(slidingPuzzle.index);
-    }, [gridWidth, gridHeight]);
+        setPuzzleMoves(slidingPuzzle.getMoves());
+    }, [width, height]);
 
     const handlePuzzleClick = (index:number) => {
-        console.log(index)
         slidingPuzzle.list = slidingPuzzle.move(index);
         slidingPuzzle.index = slidingPuzzle.getIndex();
         setPuzzleList(slidingPuzzle.list);
@@ -25,11 +31,18 @@ export const SlidingPuzzleProvider = ({ imageSrc, gridWidth, gridHeight, childre
         setPuzzleMoves(slidingPuzzle.getMoves());
     };
 
-    const tileSize = 100 / gridWidth;
+    const handleSettingsClick = (size:number) => {
+        if(size < GRID_MINIMUM_SIZE) return;
+        setWidth(size);
+        setHeight(size);
+    };
+
+    const tileWidthSize = 100 / width;
+    const tileHeightSize = 100 / height;
     const puzzleStyle = {
         display: 'grid',
-        gridTemplateColumns: `repeat(${gridWidth}, ${tileSize}%)`,
-        gridTemplateRows: `repeat(${gridWidth}, ${tileSize}%)`,
+        gridTemplateColumns: `repeat(${width}, ${tileWidthSize}%)`,
+        gridTemplateRows: `repeat(${height}, ${tileHeightSize}%)`,
         width: '500px',
         height: '500px',
         margin: '0 auto',
@@ -61,7 +74,9 @@ export const SlidingPuzzleProvider = ({ imageSrc, gridWidth, gridHeight, childre
     };
 
     return (
-        <SlidingPuzzleContext.Provider value={{ puzzleList, handlePuzzleClick, puzzleIndex, puzzleStyle, tileStyle, emptyTileStyle, gridWidth, gridHeight,  puzzleMoves }}>
+        <SlidingPuzzleContext.Provider value={
+            { puzzleList, handlePuzzleClick, handleSettingsClick, puzzleIndex, puzzleStyle,
+                tileStyle, emptyTileStyle, width, height,  puzzleMoves }}>
             {children}
         </SlidingPuzzleContext.Provider>
     );

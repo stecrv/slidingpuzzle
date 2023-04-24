@@ -1,10 +1,12 @@
 import React from 'react'
 import './App.css'
 import reactLogo from './assets/react.svg'
+import {DEFAULT_PUZZLE} from "./lib/sliding-puzzle/constants";
 import {SlidingPuzzleProvider} from "./context/SlidingPuzzleContext";
 import {SlidingPuzzleBoard} from "./components/SlidingPuzzleBoard";
 import {SlidingPuzzleStatus} from "./components/SlidingPuzzleStatus";
-import {APP_INITIAL_VALUE} from "./constants/app";
+import {SlidingPuzzleSettings} from "./components/SlidingPuzzleSettigns";
+
 
 
 function App() {
@@ -13,9 +15,13 @@ function App() {
     <div className="App">
       <h1>Sliding Puzzle</h1>
       <div className="card">
-          <SlidingPuzzleProvider imageSrc={reactLogo} gridWidth={APP_INITIAL_VALUE.width} gridHeight={APP_INITIAL_VALUE.height}>
+          <SlidingPuzzleProvider
+              imageSrc={reactLogo}
+              gridWidth={DEFAULT_PUZZLE.gridWidth}
+              gridHeight={DEFAULT_PUZZLE.gridHeight}>
               <SlidingPuzzleStatus />
               <SlidingPuzzleBoard />
+              <SlidingPuzzleSettings />
           </SlidingPuzzleProvider>
       </div>
     </div>

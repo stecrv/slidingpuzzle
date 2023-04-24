@@ -7,3 +7,6 @@ export const DEFAULT_PUZZLE: Grid = {
     list: [],
     moves: 0
 }
+
+export const GRID_MINIMUM_SIZE = 3;
+
