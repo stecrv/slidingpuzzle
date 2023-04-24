@@ -3,4 +3,5 @@ export interface Grid {
     gridWidth: number;
     gridHeight: number;
     list: Array<number>;
+    moves: number;
 }

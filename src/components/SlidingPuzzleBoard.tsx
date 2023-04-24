@@ -7,7 +7,7 @@ export const SlidingPuzzleBoard = () => {
         puzzleList, puzzleIndex, puzzleStyle, tileStyle, emptyTileStyle, gridSize
     } = useContext(SlidingPuzzleContext);
 
-    
+
     const tiles = puzzleList.map((value, index) => {
         const tileContent = value === 0 ? '' : value;
         const tileStyleWithPosition = {
@@ -26,8 +26,6 @@ export const SlidingPuzzleBoard = () => {
 
     return (
         <>
-            <h1>Sliding Puzzle Game</h1>
-            <p>{[...puzzleList]}</p>
             <div style={puzzleStyle}>
                 {tiles}
             </div>

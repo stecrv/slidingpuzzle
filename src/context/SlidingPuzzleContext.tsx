@@ -8,7 +8,8 @@ const slidingPuzzle = new SlidingPuzzle(3,3);
 export const SlidingPuzzleProvider = ({ imageSrc, gridSize, children }) => {
 
     const [puzzleList, setPuzzleList] = useState(slidingPuzzle.list);
-    const [puzzleIndex, setPuzzleIndex] = useState(slidingPuzzle.index); // 0?
+    const [puzzleIndex, setPuzzleIndex] = useState(slidingPuzzle.index);
+    const [puzzleMoves, setPuzzleMoves ] =  useState(slidingPuzzle.moves);
 
     useEffect(() => {
         setPuzzleList(slidingPuzzle.list);
@@ -21,6 +22,7 @@ export const SlidingPuzzleProvider = ({ imageSrc, gridSize, children }) => {
         slidingPuzzle.index = slidingPuzzle.getIndex();
         setPuzzleList(slidingPuzzle.list);
         setPuzzleIndex(slidingPuzzle.index);
+        setPuzzleMoves(slidingPuzzle.getMoves());
     };
 
     const tileSize = 100 / gridSize;
@@ -59,7 +61,7 @@ export const SlidingPuzzleProvider = ({ imageSrc, gridSize, children }) => {
     };
 
     return (
-        <SlidingPuzzleContext.Provider value={{ puzzleList, handlePuzzleClick, puzzleIndex, puzzleStyle, tileStyle, emptyTileStyle, gridSize }}>
+        <SlidingPuzzleContext.Provider value={{ puzzleList, handlePuzzleClick, puzzleIndex, puzzleStyle, tileStyle, emptyTileStyle, gridSize, puzzleMoves }}>
             {children}
         </SlidingPuzzleContext.Provider>
     );
