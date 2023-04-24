@@ -37,46 +37,10 @@ export const SlidingPuzzleProvider = ({ imageSrc, gridWidth, gridHeight, childre
         setHeight(size);
     };
 
-    const tileWidthSize = 100 / width;
-    const tileHeightSize = 100 / height;
-    const puzzleStyle = {
-        display: 'grid',
-        gridTemplateColumns: `repeat(${width}, ${tileWidthSize}%)`,
-        gridTemplateRows: `repeat(${height}, ${tileHeightSize}%)`,
-        width: '500px',
-        height: '500px',
-        margin: '0 auto',
-        backgroundImage: `url(${imageSrc})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        border: '2px solid black',
-        borderRadius: '5px',
-        overflow: 'hidden',
-    };
-
-    const tileStyle = {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: '36px',
-        fontWeight: 'bold',
-        color: 'white',
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        cursor: 'pointer',
-        transition: 'transform 0.2s ease-in-out',
-        transform: 'scale(1)',
-    };
-
-    const emptyTileStyle = {
-        ...tileStyle,
-        backgroundColor: 'transparent',
-        cursor: 'default',
-    };
-
     return (
         <SlidingPuzzleContext.Provider value={
-            { puzzleList, handlePuzzleClick, handleSettingsClick, puzzleIndex, puzzleStyle,
-                tileStyle, emptyTileStyle, width, height,  puzzleMoves }}>
+            { puzzleList, handlePuzzleClick, handleSettingsClick, puzzleIndex,
+                width, height,  puzzleMoves, imageSrc }}>
             {children}
         </SlidingPuzzleContext.Provider>
     );
