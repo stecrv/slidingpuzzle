@@ -21,3 +21,38 @@ We would like you to build a sliding puzzle (example: https://en.wikipedia.org/w
 ## Spec
 
 The project has to be developed using ReactJS + TypeScript.
+
+## Solutions
+
+### Tech stack
+To complete the game has been used:
+* node 18.16
+* vite 4.2 using default settings
+* ts 4.9
+* react 18
+* yarn 1.22
+
+### Solution description
+The js/ts codebase includes:
+* a small library to manage the puzzle
+* standard react components
+* react context for props sharing
+* styled components for the css
+
+### AI
+* The code base include some basic suggestion from AI for basic components
+* AI has been used to verify some author solutions
+
+## Run the code
+on the terminal, run
+* `yarn`
+* `yarn dev`
+* on the terminal open the URL `http://localhost:5173/`
+
+## Future devs and What is missing
+Future improvements that are missing:
+* unit test and integration test (they are mandatory, missing for lack of time)
+* the image is only available for 3x3 game (this require a css tweak)
+* sliding animation
+* cleaning app ts warning
+* docker images
