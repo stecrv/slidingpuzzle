@@ -1,6 +1,6 @@
-import React, {useContext} from "react";
-import {SlidingPuzzleContext} from "../context/SlidingPuzzleContext";
-import {Button} from "./Button";
+import React, { useContext } from "react";
+import { SlidingPuzzleContext } from "../context/SlidingPuzzleContext";
+import { Button } from "./Button";
 
 export const SlidingPuzzleSettings = () => {
     let { width, height, handleSettingsClick } = useContext(SlidingPuzzleContext);

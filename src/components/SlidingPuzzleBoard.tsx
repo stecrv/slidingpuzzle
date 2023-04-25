@@ -1,15 +1,15 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import {SlidingPuzzleContext} from "../context/SlidingPuzzleContext";
+import { SlidingPuzzleContext } from "../context/SlidingPuzzleContext";
+import { APP_BACKGROUND_SIZE } from "../constants/app";
 
-const PuzzleContainer = styled.div`
+const SlidingPuzzleContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(${props => props.width}, ${props => 100 / props.width}%);
   grid-template-rows: repeat(${props => props.height}, ${props => 100 / props.height}%);
   width: 500px;
   height: 500px;
   margin: 0 auto;
-  background-image: url(${props => props.imageSrc});
   background-size: cover;
   background-position: center;
   border: 2px solid black;
@@ -17,7 +17,7 @@ const PuzzleContainer = styled.div`
   overflow: hidden;
 `;
 
-const PuzzleTile = styled.div`
+const Tile = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,11 +26,18 @@ const PuzzleTile = styled.div`
   color: white;
   background-color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
   transform: scale(1);
+  ${props => props.width > APP_BACKGROUND_SIZE} {
+    background-image: url(${props => props.imageSrc});
+    background-size: ${props => props.imageWidth}px ${props => props.imageHeight}px;
+    background-position-x: ${props => ((((props.pos - 1) % props.width === 0 ? 0 : (props.pos - 1) % props.width === 1 ? 0.5 : 1) * 100))}%;
+    background-position-y: ${props => (((Math.floor((props.pos - 1) / props.height)) * 50))}%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
 `;
 
-const EmptyPuzzleTile = styled(PuzzleTile)`
+const EmptyTile = styled(Tile)`
   background-color: transparent;
   cursor: default;
 `;
@@ -41,16 +48,25 @@ export const SlidingPuzzleBoard = () => {
     } = useContext(SlidingPuzzleContext);
 
     return (
-        <PuzzleContainer imageSrc={imageSrc} width={width} height={height}>
+        <SlidingPuzzleContainer width={width} height={height}>
             {puzzleList.map((content, index) =>
                 content === 0 ? (
-                    <EmptyPuzzleTile key={index} />
+                    <EmptyTile key={index} />
                 ) : (
-                    <PuzzleTile key={index} onClick={() => handlePuzzleClick(index)}>
+                    <Tile key={index}
+                          onClick={() => handlePuzzleClick(index)}
+                          imageSrc={imageSrc}
+                          imageWidth={500}
+                          imageHeight={500}
+                          width={width}
+                          height={height}
+                          pos={content}>
+                        <>
                         {content}
-                    </PuzzleTile>
+                        </>
+                    </Tile>
                 )
             )}
-        </PuzzleContainer>
+        </SlidingPuzzleContainer>
     );
 }
