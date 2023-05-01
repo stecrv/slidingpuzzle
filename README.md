@@ -42,6 +42,7 @@ The js/ts codebase includes:
 ### AI
 * The code base include some basic suggestion from AI for basic components
 * AI has been used to verify some author solutions
+* code optimization
 
 ## Run the code
 on the terminal, run
