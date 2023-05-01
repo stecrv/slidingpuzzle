@@ -1,4 +1,5 @@
 import { DEFAULT_PUZZLE, GRID_MINIMUM_SIZE } from "./constants";
+import {PuzzleData} from "./types";
 
 
 export class SlidingPuzzle {
@@ -30,6 +31,10 @@ export class SlidingPuzzle {
         return this.moves
     }
 
+    getData() : PuzzleData {
+        return {list: this.list, index: this.getIndex(), moves: this.moves}
+    }
+
     createGrid(width: number, height: number): number[] {
         const gridWidth: number = width * height;
         const gridList: number[] = [...Array(gridWidth).keys()];
@@ -37,7 +42,6 @@ export class SlidingPuzzle {
     }
 
     createPuzzle(width: number, height: number): void {
-        console.log('construct');
         this.gridHeight = height;
         this.gridWidth = width;
         this.list = this.createGrid(this.gridWidth, this.gridHeight);

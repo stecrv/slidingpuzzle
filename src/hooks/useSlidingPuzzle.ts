@@ -7,25 +7,24 @@ export const useSlidingPuzzle = (width, height) => {
     const [puzzleIndex, setPuzzleIndex] = useState(0);
     const [puzzleMoves, setPuzzleMoves] = useState(0);
 
+    const slidingPuzzleData = () =>{
+        const {list, index, moves} = slidingPuzzle.getData()
+        setPuzzleList(list);
+        setPuzzleIndex(index);
+        setPuzzleMoves(moves);
+    }
+
     const handlePuzzleClick = useCallback(
         (index) => {
-            const newList = slidingPuzzle.move(index);
-            const newIndex = slidingPuzzle.getIndex();
-            const newMoves = slidingPuzzle.getMoves();
-            setPuzzleList(newList);
-            setPuzzleIndex(newIndex);
-            setPuzzleMoves(newMoves);
+            slidingPuzzle.move(index);
+            slidingPuzzleData();
         },
         [slidingPuzzle]
     );
 
     useEffect(() => {
         slidingPuzzle.createPuzzle(width, height);
-        const newIndex = slidingPuzzle.getIndex();
-        const newMoves = slidingPuzzle.getMoves();
-        setPuzzleList(slidingPuzzle.list);
-        setPuzzleIndex(newIndex);
-        setPuzzleMoves(newMoves);
+        slidingPuzzleData();
     }, [slidingPuzzle, width, height]);
 
     return {
